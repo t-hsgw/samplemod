@@ -18,6 +18,7 @@ pipeline {
                 sh 'ls -al'
                 sh 'pwd'
                 sh 'hostname'
+                sh 'ip addr'
             }
         }
         stage('docker setup') {
