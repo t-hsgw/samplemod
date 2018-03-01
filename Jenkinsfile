@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('checkup') {
             steps {
-                sh 'ls'
+                sh 'ls -al'
                 sh 'pwd'
             }
         }
