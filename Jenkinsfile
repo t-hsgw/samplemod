@@ -17,6 +17,7 @@ pipeline {
             steps {
                 sh 'ls -al'
                 sh 'pwd'
+                sh 'hostname'
             }
         }
         stage('docker setup') {
