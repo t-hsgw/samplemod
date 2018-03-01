@@ -13,6 +13,12 @@ pipeline {
         }
     }
     stages {
+        stage('checkup') {
+            steps {
+                sh 'ls'
+                sh 'pwd'
+            }
+        }
         stage('docker setup') {
             steps {
                 sh 'pip install --upgrade pip'
