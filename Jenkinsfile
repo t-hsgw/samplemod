@@ -9,23 +9,15 @@ pipeline {
     agent {
         docker {
             image 'python:3.5.1'
-            args '-u root -v /var/lib/jenkins/.pypirc:/var/lib/jenkins/workspace/sample_pipeline/.pypirc'
+            args '-u root -v /var/lib/.pypirc:/var/lib/.pypirc'
         }
     }
     stages {
-        stage('get source') {
-            checkout scm
-            sh 'ls -al'
-        }
-        stage('id'){
+        stage('checkup') {
             steps {
-                sh 'id'
-                sh 'hostname'
-                sh 'pwd'
                 sh 'ls -al'
-                sh 'cat .pypirc'
-                sh 'cd /'
-                sh 'ls'
+                sh 'pwd'
+                sh 'hostname'
             }
         }
         stage('docker setup') {
@@ -39,9 +31,12 @@ pipeline {
         stage('test'){
             steps {
                 sh 'python setup.py test'
-                sh 'python setup.py upload --help'
+            }
+        }
+        stage('upload'){
+            steps {
                 sh 'python setup.py sdist'
-                sh 'twine upload --config-file .pypirc --repository internal --skip-existing dist/*'
+                sh 'twine upload --config-file /var/lib/.pypirc --repository internal --skip-existing dist/*'
             }
         }
     }
